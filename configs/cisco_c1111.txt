@@ -1,0 +1,28 @@
+!
+aaa new-model
+!
+!
+aaa authentication login default group radius local
+aaa authentication login radius-auth group radius local
+aaa authentication enable default group radius enable
+aaa authentication dot1x default group radius local
+aaa authorization exec default group radius local
+aaa accounting exec default start-stop group radius
+aaa accounting network default start-stop group radius
+!
+!
+radius server radius.redes
+ address ipv4 192.168.1.100 auth-port 1812 acct-port 1813
+ key radiusClave123
+!
+line vty 0 4
+privilege level 15
+ exec-timeout 0 0
+ privilege level 15
+ login authentication radius-auth
+ transport input ssh
+line vty 5 15
+privilege level 15
+ privilege level 15
+ transport input ssh
+!
