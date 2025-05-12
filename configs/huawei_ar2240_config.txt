@@ -1,1 +1,27 @@
-
+#
+radius-server template default
+radius-server template radius.redes
+ radius-server shared-key cipher radiusClave123
+ radius-server authentication 192.168.1.100 1812 weight 80
+ radius-server retransmit 2
+ undo radius-server user-name domain-included
+#
+#
+aaa
+authentication-scheme auth
+authentication-mode radius local
+#
+domain huawei
+ authentication-scheme auth
+ radius-server radius.redes
+#
+domain huawei
+domain huawei admin
+#
+#
+user-interface vty 0 4
+ authentication-mode aaa
+ user privilege level 15
+ idle-timeout 30 0
+ protocol inbound ssh
+#
